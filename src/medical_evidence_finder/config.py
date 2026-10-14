@@ -1,10 +1,10 @@
 """Project paths and settings that work both locally and on Google Colab.
 
 Path resolution order (for both DATA_DIR and RESULTS_DIR):
-1. Environment variable override (MEF_DATA_DIR / MEF_RESULTS_DIR)
-2. On Colab with Google Drive mounted: /content/drive/MyDrive/medical-evidence-finder/
-3. On Colab without Drive: /content/medical-evidence-finder/ (lost when the runtime resets)
-4. Locally: data/ and results/ at the project root
+- Environment variable override (MEF_DATA_DIR / MEF_RESULTS_DIR)
+- On Colab with Google Drive mounted: /content/drive/MyDrive/medical-evidence-finder/
+- On Colab without Drive: /content/medical-evidence-finder/ (lost when the runtime resets)
+- Locally: data/ and results/ at the project root
 """
 
 import os
@@ -56,7 +56,7 @@ def load_colab_secrets(
 ) -> None:
     """Copy Colab Secrets into environment variables so boto3 can find them.
 
-    No-op outside Colab (locally, boto3 reads ~/.aws/credentials or your env vars).
+    No-op outside Colab (locally, boto3 reads ~/.aws/credentials or env vars)
     """
     if not IN_COLAB:
         return
@@ -66,7 +66,7 @@ def load_colab_secrets(
         try:
             os.environ[name] = userdata.get(name)
         except Exception:  # SecretNotFoundError, or notebook access not granted
-            warnings.warn(f"Colab secret {name!r} not found; add it via the key icon in the sidebar.")
+            warnings.warn(f"Colab secret {name!r} not found; add it via the key icon in the sidebar")
 
 REGION = "us-east-1"
 EMBED_MODEL = "amazon.titan-embed-text-v2:0"
